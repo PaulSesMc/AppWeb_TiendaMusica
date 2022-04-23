@@ -1,0 +1,25 @@
+html {
+    background-image:url('../img/fondo3.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+img{
+    width: auto;
+    height: auto;
+}
+
+.pagina{
+    background: #fdf5e6;
+    margin: 10px auto 10px auto;
+    width: 90%;
+    font-family:"Arial";
+    position: relative;
+    top: 100px;
+    border-radius: 25px;
+}
+
+.texto{
+    padding: 10px;
+}
