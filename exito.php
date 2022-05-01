@@ -20,15 +20,6 @@
   </head>
 
   <body>
-    <!-- ***** Preloader Start ***** -->
-    <div id="preloader">
-        <div class="jumper">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>  
-    <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
     <header class="">
@@ -61,10 +52,37 @@
     <div class="page-heading contact-heading header-text">
       <div class="container" id="sesiones">
         <div class="row">
-          <?php
-                echo "<p>Prueba</p><br>";
-          ?>
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <?PHP
+              error_reporting(E_ALL);
+              ini_set('display_errors','On');
+
+              $con = mysqli_connect("127.0.0.1","root","","pf");
+              if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+              }
+
+              $nombre =$_POST['nombre'];
+              $correo =$_POST['correo'];
+              $password = $_POST['password'];
+
+              $q_insertar="INSERT INTO usuarios(nombre, correo, pass) VALUES('$nombre', '$correo', '$password');";
+
+              $r_insertar = mysqli_query($con,$q_insertar);
+
+              if(!$r_insertar){
+                echo "Error al insertar en tabla \n";
+                echo "q_insertar = $q_insertar \n";
+                echo "<input type=\"button\" name=\"b_regresar\" value=\"Regresar\"  onClick=\"window.location='registro.php'";
+                exit;
+              }else{
+                echo "<center><br><h3>Registrado con Exito</h3><br></center>";
+              }
+              mysqli_close($con);
+            ?>
+          </div>
         </div>
+        <a href="index.html" class="filled-button">Regresar</a>
       </div>
     </div>
 

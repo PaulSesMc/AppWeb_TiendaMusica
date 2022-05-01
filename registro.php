@@ -85,7 +85,7 @@
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                       <fieldset>
-                        <input name="password" type="text" class="form-control" id="password" placeholder="Contraseña" required="">
+                        <input name="password" type="password" class="form-control" id="password" placeholder="Contraseña" required="">
                       </fieldset>
                     </div>
                     <div class="col-lg-12">
