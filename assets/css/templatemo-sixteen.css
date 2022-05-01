@@ -5,6 +5,10 @@ TemplateMo 546 Sixteen Clothing
 https://templatemo.com/tm-546-sixteen-clothing
 
 */
+html{
+	scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden;
@@ -97,11 +101,11 @@ a.filled-button:hover {
 }
 
 .contact-heading {
-	background-image: url(../images/contact-heading.jpg);
+	background-image: url(../images/fondo3.jpg);
 }
 
 .page-heading {
-	padding: 210px 0px 130px 0px;
+	padding: 150px 0px 150px 0px;
 	text-align: center;
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -1057,4 +1061,11 @@ footer .inner-content p a {
 		right: 0;
 		bottom: 0;
 	}
+}
+
+#sesiones {
+	background-color: white;
+	padding: 25px;
+	border-radius: 25px;
+	width: 50%;
 }
