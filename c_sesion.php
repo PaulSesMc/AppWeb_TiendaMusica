@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,34 +23,25 @@
   </head>
 
   <body>
-    <!-- ***** Preloader Start ***** -->
-    <div id="preloader">
-        <div class="jumper">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>  
-    <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Zato Sen <em>Records</em></h2></a>
+          <a class="navbar-brand" href="index.php"><h2>Zato Sen <em>Records</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">Inicio</a>
+                <a class="nav-link" href="index.php">Inicio</a>
               </li> 
               <li class="nav-item">
-                <a class="nav-link" href="#productos">Productos</a>
+                <a class="nav-link" href="index.php">Productos</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="sesion.html">Iniciar Sesión
+                <a class="nav-link" href="sesion.php">Iniciar Sesión
                   <span class="sr-only">(current)</span>
                 </a>
               </li> 
@@ -63,30 +57,53 @@
         <div class="row">
           <div class="col-md-12">
             <div class="text-content" >
-              <h4>Iniciar Sesión</h4>
-              <div class="contact-form">
-                <form id="contact" action="" method="post">
-                  <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                      <fieldset>
-                        <input name="email" type="text" class="form-control" id="email" placeholder="E-Mail Address" required="">
-                      </fieldset>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                      <fieldset>
-                        <input name="password" type="password" class="form-control" id="password" placeholder="Contraseña" required="">
-                      </fieldset>
-                    </div>
-                    <div class="col-lg-12">
-                      <fieldset>
-                        <button type="submit" id="form-submit" class="filled-button">Entrar</button>
-                      </fieldset>
-                    </div>
-                  </div>
-                </form>
-                <br><br>
-                <p>No tienes cuenta? <a href="registro.php">Registrarse</a></p>
-              </div>
+              <?php
+                if (isset($_SESSION['user'])) {
+                  echo "<h4>Cerrar Sesion</h4>";
+                  if(isset($_POST['cerrar'])){
+                    session_unset();
+                    session_destroy();  
+                    echo "<p>Sesión Cerrada</p>";
+                    echo "<a href=\"index.php\" class=\"filled-button\">Regresar</a>";
+                  }else{
+                    echo "<form id=\"cerrar\" action=\"#\" method=\"post\">
+                                <div class=\"row\">
+                                    <div class=\"col-lg-12\">
+                                        <fieldset>
+                                            <button type=\"submit\" name=\"cerrar\" value=\"cerrar\" id=\"form-submit\" class=\"filled-button\">Salir</button>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </form>";
+                  }
+                }else{
+                  echo "<h4>Iniciar Sesión</h4>
+                  <div class=\"contact-form\">
+                    <form id=\"contact\" action=\"#\" method=\"post\">
+                      <div class=\"row\">
+                        <div class=\"col-lg-12 col-md-12 col-sm-12\">
+                          <fieldset>
+                            <input name=\"email\" type=\"text\" class=\"form-control\" id=\"email\" placeholder=\"E-Mail Address\" required=\"\">
+                          </fieldset>
+                        </div>
+                        <div class=\"col-lg-12 col-md-12 col-sm-12\">
+                          <fieldset>
+                            <input name=\"password\" type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Contraseña\" required=\"\">
+                          </fieldset>
+                        </div>
+                        <div class=\"col-lg-12\">
+                          <fieldset>
+                            <button type=\"submit\" name=\"login\" value=\"login\" id=\"form-submit\" class=\"filled-button\">Entrar</button>
+                          </fieldset>
+                        </div>
+                      </div>
+                    </form>
+                    <br><br>
+                    <p>No tienes cuenta? <a href=\"registro.php\">Registrarse</a></p>
+                  </div>";
+                }
+              ?>
+              
             </div>
           </div>
         </div>

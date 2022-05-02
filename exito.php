@@ -1,3 +1,6 @@
+<?PHP
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,20 +28,20 @@
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Zato Sen <em>Records</em></h2></a>
+          <a class="navbar-brand" href="index.php"><h2>Zato Sen <em>Records</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">Inicio</a>
+                <a class="nav-link" href="index.php">Inicio</a>
               </li> 
               <li class="nav-item">
                 <a class="nav-link" href="#productos">Productos</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="sesion.html">Iniciar Sesión
+                <a class="nav-link" href="sesion.php">Iniciar Sesión
                   <span class="sr-only">(current)</span>
                 </a>
               </li> 
@@ -54,9 +57,6 @@
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12">
             <?PHP
-              error_reporting(E_ALL);
-              ini_set('display_errors','On');
-
               $con = mysqli_connect("127.0.0.1","root","","pf");
               if (mysqli_connect_errno()) {
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -82,7 +82,7 @@
             ?>
           </div>
         </div>
-        <a href="index.html" class="filled-button">Regresar</a>
+        <a href="index.php" class="filled-button">Regresar</a>
       </div>
     </div>
 

@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +23,6 @@
   </head>
 
   <body>
-
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
         <div class="jumper">
@@ -35,23 +37,36 @@
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Zato Sen <em>Records</em></h2></a>
+          <a class="navbar-brand" href="index.php"><h2>Zato Sen <em>Records</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="index.html">Inicio
+                <a class="nav-link" href="index.php">Inicio
                   <span class="sr-only">(current)</span>
                 </a>
               </li> 
               <li class="nav-item">
                 <a class="nav-link" href="#productos">Productos</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="sesion.html">Iniciar Sesión</a>
-              </li>
+              <?php
+                if (isset($_SESSION["user"])) {
+                  $nombre = $_SESSION["user"];
+                  echo "<li class=\"nav-item\">
+                          <a class=\"nav-link\" href=#>$nombre</a>
+                        </li>
+                        <li class=\"nav-item\">
+                          <a class=\"nav-link\" href=\"c_sesion.php\">Cerrar Sesión</a>
+                        </li>";
+                } else {
+                  echo "<li class=\"nav-item\">
+                          <a class=\"nav-link\" href=\"sesion.php\">Iniciar Sesión</a>
+                        </li>";
+                }
+                
+              ?>
             </ul>
           </div>
         </div>
