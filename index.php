@@ -107,7 +107,7 @@
             <div class="product-item">
               <a href="discos.html"><img src="assets/images/fondo1.gif" alt="disco girando"></a>
               <div class="down-content">
-                <a href="./discos.html"><h4>CDs</h4></a>
+                <a href="./discos.php"><h4>CDs</h4></a>
               </div>
             </div>
           </div>

@@ -5,7 +5,6 @@
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -77,6 +76,7 @@
                   } else {
                       $_SESSION['user_id'] = $result['id'];
                       $_SESSION['user'] = $result['nombre'];
+                      $_SESSION['permisos'] = $result['permisos'];
                       echo '<p class="success">Congratulations, you are logged in!</p><br>
                       <a href="index.php" class="filled-button">Regresar</a>';
                   }
