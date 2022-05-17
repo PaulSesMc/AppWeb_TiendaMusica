@@ -59,7 +59,7 @@
             <div class="text-content" >
               <h4>Agregar Producto</h4>
               <div class="contact-form">
-                <form id="contact" action="#" method="post">
+                <form id="contact" action="#" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <fieldset>
@@ -110,11 +110,28 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-12">
-                                <fieldset>
-                                    <input type="file" name="uploadfile" value=""/>
-                                </fieldset>
+                          <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                              <label for="exampleFormControlFile1">Portada</label>
+                              <input type="file" class="form-control-file" name="portada">
                             </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                              <label for="exampleFormControlFile1">Imagen extra 1</label>
+                              <input type="file" class="form-control-file" >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                              <label for="exampleFormControlFile1">Imagen extra 2</label>
+                              <input type="file" class="form-control-file">
+                            </div>
+                          </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12">
                         <fieldset>
@@ -132,18 +149,50 @@
        
                         $titulo = $_POST['titulo'];
                         $tipo = $_POST['tipo'];
-                        $precio = $_POST['precio'];
+                        $precio = $_POST['precio']; 
                         $genero = $_POST['genero'];
                         $artista = $_POST['artista'];
                         $stock = $_POST['stock'];
       
                         $query="INSERT INTO productos(titulo, tipo, precio, genero, artista, stock) VALUES('$titulo', '$tipo', '$precio', '$genero', '$artista', '$stock');";
-      
                         $r_insertar = mysqli_query($con,$query);
                         if(!$r_insertar){
                             $message = "Error al insertar";
                         }else{
                             $message = "Se agregó correctamente el producto";
+                        }
+                        echo "<script type='text/javascript'>alert('$message');</script>";
+
+                        $query="SELECT id FROM productos WHERE titulo='$titulo';";
+                        $resultado = mysqli_query($con,$query);
+                        $row = mysqli_fetch_assoc($resultado);
+                        $id = $row["id"];
+                        $targetDir = "uploads/";
+                        $portada = basename($_FILES["portada"]["name"]);
+                        $targetFilePath = $targetDir . $portada;
+                        $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+                        if(!empty($_FILES["portada"]["name"])){
+                          // Allow certain file formats
+                          $allowTypes = array('jpg','png','jpeg','gif','pdf');
+                          if(in_array($fileType, $allowTypes)){
+                              // Upload file to server
+                              if(move_uploaded_file($_FILES["portada"]["tmp_name"], $targetFilePath)){
+                                  // Insert image file name into database
+                                  $query="INSERT INTO imagenes(id_producto, imagen) VALUES ('$id', '".$portada."')";
+                                  $insert = mysqli_query($con,$query);
+                                  if($insert){
+                                      $message = "The file ".$portada. " has been uploaded successfully.";
+                                  }else{
+                                      $message = "File upload failed, please try again.";
+                                  } 
+                              }else{
+                                  $message = "Sorry, there was an error uploading your file.";
+                              }
+                          }else{
+                            $message = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
+                          }
+                        }else{
+                          $message = 'Please select a file to upload.';
                         }
                         echo "<script type='text/javascript'>alert('$message');</script>";
                     }
@@ -161,7 +210,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="inner-content">
-              <p>Copyright &copy; 2020 Sixteen Clothing Co., Ltd.
+              <p>Copyright &copy; 2020 Sato Zen Records, Ltd.
             
             - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
             </div>

@@ -40,7 +40,8 @@ h1,h2,h3,h4,h5,h6 {
 #carrito{
 	width: 70%;
 	height: 85%;
-	background-color: #000;
+	background-color: lightcyan;
+	padding: 2px;
 	border-radius: 20px;
 	box-shadow: 0px 25px 40px #1687d933;
 }
@@ -102,7 +103,7 @@ a.filled-button:hover {
 }
 
 .products-heading {
-	background-image: url(../images/products-heading.jpg);
+	background-image: url(../images/feature-image.jpg);
 }
 
 .about-heading {

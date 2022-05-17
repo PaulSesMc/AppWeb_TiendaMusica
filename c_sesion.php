@@ -66,15 +66,17 @@
                     echo "<p>Sesión Cerrada</p>";
                     echo "<a href=\"index.php\" class=\"filled-button\">Regresar</a>";
                   }else{
-                    echo "<form id=\"cerrar\" action=\"#\" method=\"post\">
-                                <div class=\"row\">
-                                    <div class=\"col-lg-12\">
-                                        <fieldset>
-                                            <button type=\"submit\" name=\"cerrar\" value=\"cerrar\" id=\"form-submit\" class=\"filled-button\">Salir</button>
-                                        </fieldset>
-                                    </div>
-                                </div>
-                            </form>";
+                    echo "<div class=\"contact-form\">
+                              <form id=\"cerrar\" action=\"#\" method=\"post\">
+                                  <div class=\"row\">
+                                      <div class=\"col-lg-12\">
+                                          <fieldset>
+                                              <button type=\"submit\" name=\"cerrar\" value=\"cerrar\" id=\"form-submit\" class=\"filled-button\">Salir</button>
+                                          </fieldset>
+                                      </div>
+                                  </div>
+                              </form>
+                          </div>";
                   }
                 }else{
                   echo "<h4>Iniciar Sesión</h4>
@@ -116,7 +118,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="inner-content">
-              <p>Copyright &copy; 2020 Sixteen Clothing Co., Ltd.
+              <p>Copyright &copy; 2020 Sato Zen Records, Ltd.
             
             - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
             </div>
