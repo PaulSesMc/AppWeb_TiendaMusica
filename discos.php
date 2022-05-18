@@ -127,8 +127,8 @@
                           <a href=\"#\"><img src=\"$imagen\" alt=\"\"></a>
                           <div class=\"down-content\">
                             <a href=\"#\"><h4>$titulo</h4></a>
-                            <br><h6>$$precio</h6>
                             <p>$artista</p>
+                            <h6>$$precio</h6><br>
                             <form method=\"post\">
                               <div class=\"cart-action\"><button name=\"carrito\" value=\"$id\" type=\"submit\" class=\"carrito\">Agregar al carrito</button></div>
                             </form>
