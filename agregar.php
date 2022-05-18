@@ -38,7 +38,7 @@
                 <a class="nav-link" href="index.php">Inicio</a>
               </li> 
               <li class="nav-item">
-                <a class="nav-link" href="#productos">Productos</a>
+                <a class="nav-link" href="index.php#productos">Productos</a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link" href="sesion.php">Iniciar Sesión
@@ -74,7 +74,7 @@
                                 <option value="">--Tipo--</option>
                                 <option value="Disco">Disco</option>
                                 <option value="Vinil">Vinil</option>
-                                <option value="Accesorio">Accesorio</option>
+                                <option value="Digital">Digital</option>
                             </select>
                         </fieldset>
                         </div>
@@ -114,22 +114,6 @@
                             <div class="form-group">
                               <label for="exampleFormControlFile1">Portada</label>
                               <input type="file" class="form-control-file" name="portada">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="form-group">
-                              <label for="exampleFormControlFile1">Imagen extra 1</label>
-                              <input type="file" class="form-control-file" >
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="form-group">
-                              <label for="exampleFormControlFile1">Imagen extra 2</label>
-                              <input type="file" class="form-control-file">
                             </div>
                           </div>
                         </div>
@@ -192,9 +176,12 @@
                             $message = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
                           }
                         }else{
-                          $message = 'Please select a file to upload.';
+                          $message = 'Escoja una portada';
                         }
-                        echo "<script type='text/javascript'>alert('$message');</script>";
+                        echo "<script type='text/javascript'>alert('$portada');</script>";
+                        function subirImagen($archivo, $nombre){
+                          
+                        }
                     }
                 ?>
               </div>

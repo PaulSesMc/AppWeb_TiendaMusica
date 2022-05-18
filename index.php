@@ -55,13 +55,8 @@
                 if (isset($_SESSION["user"])) {
                   $nombre = $_SESSION["user"];
                   echo "<li class=\"nav-item\">
-                          <a class=\"nav-link\" href=\"c_sesion.php\">Cerrar Sesión</a>
+                          <a class=\"nav-link\" href=\"usuario.php\">$_SESSION[user]</a>
                         </li>";
-                  if($_SESSION["permisos"]==1){
-                    echo "<li class=\"nav-item\">
-                            <a class=\"nav-link\" href=\"agregar.php\">Agregar productos</a>
-                          </li>";
-                  }
                 } else {
                   echo "<li class=\"nav-item\">
                           <a class=\"nav-link\" href=\"sesion.php\">Iniciar Sesión</a>

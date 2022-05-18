@@ -36,13 +36,13 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto"> 
+              <li class="nav-item">
+                <a class="nav-link" href="discos.php">Discos</a>
+              </li>
               <li class="nav-item active">
-                <a class="nav-link" href="discos.php">Discos
+                <a class="nav-link" href="viniles.php">Viniles
                   <span class="sr-only">(current)</span>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="viniles.php">Viniles</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="accesorios.html">Accesorios</a>
@@ -76,7 +76,7 @@
           <div class="col-md-12">
             <div class="text-content">
               <h4>Los mejores</h4>
-              <h2>Discos</h2>
+              <h2>Viniles</h2>
             </div>
           </div>
         </div>
@@ -106,7 +106,7 @@
                   if (mysqli_connect_errno()) {
                     echo "Failed to connect to MySQL: " . mysqli_connect_error();
                   }
-                  $query="SELECT * FROM productos WHERE tipo='Disco';";
+                  $query="SELECT * FROM productos WHERE tipo='Vinil';";
                   $result = mysqli_query($con,$query);
                   while($row = mysqli_fetch_array($result)){
                     $titulo = $row['titulo'];
@@ -126,7 +126,7 @@
                         <a href=\"#\"><img src=\"$imagen\" alt=\"\"></a>
                         <div class=\"down-content\">
                           <a href=\"#\"><h4>$titulo</h4></a>
-                          <br><h6>$$precio</h6>
+                          <h6>$$precio</h6>
                           <p>$artista</p>
                         </div>
                       </div>
