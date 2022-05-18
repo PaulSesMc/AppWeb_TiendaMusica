@@ -1,4 +1,4 @@
-<?php
+<?PHP
   session_start();
 ?>
 <!DOCTYPE html>
@@ -41,7 +41,7 @@
                 <a class="nav-link" href="index.php#productos">Productos</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="#"><?php echo "$_SESSION[user]" ?>
+                <a class="nav-link" href="usuario.php"><?php echo "$_SESSION[user]" ?>
                   <span class="sr-only">(current)</span>
                 </a>
               </li> 
@@ -53,53 +53,71 @@
 
     <!-- Page Content -->
     <div class="page-heading contact-heading header-text">
-        <div class="container" id="sesiones">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="text-content" >
-                        <div class="contact-form">
-                            <?php
-                                if (isset($_SESSION['user'])) {
-                                    if($_SESSION['permisos']==1){
-                                        echo "<h4>Menú Administrador</h4>
-                                        <br><h5>Productos</h5><br>
-                                        <div class=\"row\">
-                                            <div class=\"col-lg-6 col-md-6 col-sm-6\">
-                                                <fieldset>
-                                                    <a href=\"agregar.php\" class=\"filled-button\">Agregar productos</a>
-                                                </fieldset>
-                                            </div>
-                                            <div class=\"col-lg-6 col-md-6 col-sm-6\">
-                                                <fieldset>
-                                                    <a href=\"modificar.php\" class=\"filled-button\">Modificar productos</a>
-                                                </fieldset>
-                                            </div>
-                                        </div>";
-                                    }
+      <div class="container" id="sesiones">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <?PHP
+              $con = mysqli_connect("127.0.0.1","root","","pf");
+              if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+              }
+              if (isset($_POST['cambiar'])) {
+                $producto = $_POST['cambiar'];
+                $titulo = $_POST['titulo'];
+                $tipo = $_POST['tipo'];
+                $precio = $_POST['precio']; 
+                $genero = $_POST['genero'];
+                $artista = $_POST['artista'];
+                $stock = $_POST['stock'];
 
-                                }
-                            ?>
-                            <br><h5>Opciones</h5>
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <fieldset>
-                                        <a href="c_sesion.php" class="filled-button">Cerrar Sesión</a>
-                                    </fieldset>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <fieldset>
-                                        <a href="compras.php" class="filled-button">Compras</a>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                $query="UPDATE productos SET titulo='$titulo', tipo='$tipo', precio='$precio', genero='$genero', artista='$artista', stock='$stock' WHERE id = $producto;";
+                $r_update = mysqli_query($con,$query);
+                if(!$r_update){
+                    $message = "Error al insertar";
+                }else{
+                    $message = "Se cambió correctamente el producto";
+                }
+                echo "<script type='text/javascript'>alert('$message');</script>";
+
+                $query="SELECT id FROM productos WHERE titulo='$titulo';";
+                $resultado = mysqli_query($con,$query);
+                $row = mysqli_fetch_assoc($resultado);
+                $id = $row["id"];
+                $targetDir = "uploads/";
+                $portada = basename($_FILES["portada"]["name"]);
+                $targetFilePath = $targetDir . $portada;
+                $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+                if(!empty($_FILES["portada"]["name"])){
+                  // Allow certain file formats
+                  $allowTypes = array('jpg','png','jpeg','gif','pdf');
+                  if(in_array($fileType, $allowTypes)){
+                      // Upload file to server
+                      if(move_uploaded_file($_FILES["portada"]["tmp_name"], $targetFilePath)){
+                          // Insert image file name into database
+                          $query="UPDATE imagenes SET imagen='$portada' WHERE id_producto='$id';";
+                          $insert = mysqli_query($con,$query);
+                          if($insert){
+                              $message = "The file ".$portada. " has been uploaded successfully.";
+                          }else{
+                              $message = "File upload failed, please try again.";
+                          } 
+                      }else{
+                          $message = "Sorry, there was an error uploading your file.";
+                      }
+                  }else{
+                    $message = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
+                  }
+                }
+                echo "<center><br><h3>Modificado con éxito</h3><br></center>";
+              }
+              mysqli_close($con);
+            ?>
+          </div>
         </div>
+        <a href="modificar.php" class="filled-button">Regresar</a>
+      </div>
     </div>
 
-    
     <footer>
       <div class="container">
         <div class="row">

@@ -45,7 +45,7 @@
                 <a class="nav-link" href="index.php">Inicio</a>
               </li> 
               <li class="nav-item">
-                <a class="nav-link" href="#productos">Productos</a>
+                <a class="nav-link" href="index.php#productos">Productos</a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link" href="sesion.php">Iniciar Sesión

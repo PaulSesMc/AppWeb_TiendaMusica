@@ -41,7 +41,7 @@
                 <a class="nav-link" href="index.php#productos">Productos</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="#"><?php echo "$_SESSION[user]" ?>
+                <a class="nav-link" href="usuario.php"><?php echo "$_SESSION[user]" ?>
                   <span class="sr-only">(current)</span>
                 </a>
               </li> 
@@ -57,21 +57,52 @@
         <div class="row">
           <div class="col-md-12">
             <div class="text-content" >
-              <h4>Agregar Producto</h4>
+              <h4>Modificar Producto</h4>
               <div class="contact-form">
-                <form id="contact" action="#" method="post" enctype="multipart/form-data">
+              <?php
+                $con = mysqli_connect("127.0.0.1","root","","pf");
+                if (mysqli_connect_errno()) {
+                  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                }  
+                if(isset($_POST['modificar'])){
+                  $producto = $_POST['modificar'];
+                  $query="SELECT * FROM productos WHERE id=$producto;";
+                  $result = mysqli_query($con,$query);
+                  if(!$result){
+                    $message = "Error al buscar producto";
+                  }else{
+                    $row = mysqli_fetch_array($result);
+                    $titulo = $row['titulo'];
+                    $tipo = $row['tipo'];
+                    $precio = $row['precio'];
+                    $genero = $row['genero'];
+                    $artista = $row['artista'];
+                    $stock = $row['stock'];
+                    $query="SELECT * FROM imagenes WHERE id_producto=$producto;";
+                    $result = mysqli_query($con,$query);
+                    if(!$result){
+                      $message = "Error al buscar imagen";
+                    }else{
+                      $row = mysqli_fetch_array($result);
+                      $imagen = $row['imagen'];
+                    }
+
+                  }
+                } 
+              ?>
+                <form id="contact" action="exito_mod.php" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <fieldset>
-                                <input name="titulo" type="text" class="form-control" id="titulo" placeholder="Titulo del Album" required="">
+                                <input name="titulo" type="text" class="form-control" id="titulo" placeholder="Titulo del Album" required="" value=<?php echo "\"$titulo\""?>>
                             </fieldset>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                         <fieldset>
-                            <select id="tipo" name="tipo" class="form-control">
-                                <option value="">--Tipo--</option>
+                            <select id="tipo" name="tipo" class="form-control" value=<?php echo "\"$tipo\""?>>
+                                <option value=<?php echo "\"$tipo\""?>><?php echo "$tipo"?></option>
                                 <option value="Disco">Disco</option>
                                 <option value="Vinil">Vinil</option>
                                 <option value="Digital">Digital</option>
@@ -80,15 +111,15 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <fieldset>
-                                <input name="precio" type="number" class="form-control" id="precio" placeholder="Precio" required="">
+                                <input name="precio" type="number" class="form-control" id="precio" placeholder="Precio" required="" value=<?php echo "\"$precio\""?>>
                             </fieldset>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
                         <fieldset>
-                            <select id="genero" name="genero" class="form-control">
-                                <option value="">--Genero--</option>
+                            <select id="genero" name="genero" class="form-control" value=<?php echo "\"$genero\""?>>
+                                <option value=<?php echo "\"$genero\""?>><?php echo "$genero"?></option>
                                 <option value="Rock">Rock</option>
                                 <option value="Rap">Rap</option>
                                 <option value="Pop">Pop</option>
@@ -98,14 +129,14 @@
                         </div>
                         <div class="col-lg-6">
                             <fieldset>
-                                <input type="text" name="artista" id="" placeholder="Artista">
+                                <input type="text" name="artista" id="" placeholder="Artista" value=<?php echo "\"$artista\""?>>
                             </fieldset>
                         </div>
                     </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <fieldset>
-                                    <input name="stock" type="number" class="form-control" id="stock" placeholder="Stock" required="" min="0">
+                                    <input name="stock" type="number" class="form-control" id="stock" placeholder="Stock" required="" min="0" value=<?php echo "\"$stock\""?>>
                                 </fieldset>
                             </div>
                         </div>
@@ -113,77 +144,17 @@
                           <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
                               <label for="exampleFormControlFile1">Portada</label>
-                              <input type="file" class="form-control-file" name="portada">
+                              <input type="file" class="form-control-file" name="portada" value=<?php echo "\"$imagen\""?>>
                             </div>
                           </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12">
                         <fieldset>
-                            <button name="agregar" value="agregar" type="submit" id="form-submit" class="filled-button">Agregar</button>
+                            <button name="cambiar" value=<?php echo "\"$producto\""?> type="submit" id="form-submit" class="filled-button">Modificar</button>
                         </fieldset>
                         </div>
                     </div>
                 </form>
-                <?php
-                    if (isset($_POST['agregar'])) {
-                        $con = mysqli_connect("127.0.0.1","root","","pf");
-                        if (mysqli_connect_errno()) {
-                          echo "Failed to connect to MySQL: " . mysqli_connect_error();
-                        }
-       
-                        $titulo = $_POST['titulo'];
-                        $tipo = $_POST['tipo'];
-                        $precio = $_POST['precio']; 
-                        $genero = $_POST['genero'];
-                        $artista = $_POST['artista'];
-                        $stock = $_POST['stock'];
-      
-                        $query="INSERT INTO productos(titulo, tipo, precio, genero, artista, stock) VALUES('$titulo', '$tipo', '$precio', '$genero', '$artista', '$stock');";
-                        $r_insertar = mysqli_query($con,$query);
-                        if(!$r_insertar){
-                            $message = "Error al insertar";
-                        }else{
-                            $message = "Se agregó correctamente el producto";
-                        }
-                        echo "<script type='text/javascript'>alert('$message');</script>";
-
-                        $query="SELECT id FROM productos WHERE titulo='$titulo';";
-                        $resultado = mysqli_query($con,$query);
-                        $row = mysqli_fetch_assoc($resultado);
-                        $id = $row["id"];
-                        $targetDir = "uploads/";
-                        $portada = basename($_FILES["portada"]["name"]);
-                        $targetFilePath = $targetDir . $portada;
-                        $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-                        if(!empty($_FILES["portada"]["name"])){
-                          // Allow certain file formats
-                          $allowTypes = array('jpg','png','jpeg','gif','pdf');
-                          if(in_array($fileType, $allowTypes)){
-                              // Upload file to server
-                              if(move_uploaded_file($_FILES["portada"]["tmp_name"], $targetFilePath)){
-                                  // Insert image file name into database
-                                  $query="INSERT INTO imagenes(id_producto, imagen) VALUES ('$id', '".$portada."')";
-                                  $insert = mysqli_query($con,$query);
-                                  if($insert){
-                                      $message = "The file ".$portada. " has been uploaded successfully.";
-                                  }else{
-                                      $message = "File upload failed, please try again.";
-                                  } 
-                              }else{
-                                  $message = "Sorry, there was an error uploading your file.";
-                              }
-                          }else{
-                            $message = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
-                          }
-                        }else{
-                          $message = 'Escoja una portada';
-                        }
-                        echo "<script type='text/javascript'>alert('$portada');</script>";
-                        function subirImagen($archivo, $nombre){
-                          
-                        }
-                    }
-                ?>
               </div>
             </div>
           </div>

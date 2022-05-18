@@ -56,6 +56,9 @@
                   $nombre = $_SESSION["user"];
                   echo "<li class=\"nav-item\">
                           <a class=\"nav-link\" href=\"usuario.php\">$_SESSION[user]</a>
+                        </li>
+                        <li class=\"nav-item\">
+                          <a class=\"nav-link\" href=\"carrito.php\">Carrito</a>
                         </li>";
                 } else {
                   echo "<li class=\"nav-item\">
@@ -102,7 +105,7 @@
           </div>
           <div class="col-md-4">
             <div class="product-item">
-              <a href="discos.html"><img src="assets/images/fondo1.gif" alt="disco girando"></a>
+              <a href="discos.php"><img src="assets/images/fondo1.gif" alt="disco girando"></a>
               <div class="down-content">
                 <a href="./discos.php"><h4>CDs</h4></a>
               </div>
@@ -110,17 +113,17 @@
           </div>
           <div class="col-md-4">
             <div class="product-item">
-              <a href="viniles.html"><img src="assets/images/vinil.gif" alt="vinil girando"></a>
+              <a href="viniles.php"><img src="assets/images/vinil.gif" alt="vinil girando"></a>
               <div class="down-content">
-                <a href="viniles.html"><h4>Viniles</h4></a>
+                <a href="viniles.php"><h4>Viniles</h4></a>
               </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="product-item">
-              <a href="accesorios.html"><img src="assets/images/accesorios.gif" alt="audifonos"></a>
+              <a href="digitales.php"><img src="assets/images/accesorios.gif" alt="audifonos"></a>
               <div class="down-content">
-                <a href="accesorios.html"><h4>Accesorios</h4></a>
+                <a href="digitales.php"><h4>Digitales</h4></a>
               </div>
             </div>
           </div>
@@ -138,21 +141,20 @@
           </div>
           <div class="col-md-6">
             <div class="left-content">
-              <h4>Looking for the best products?</h4>
-              <p><a rel="nofollow" href="https://templatemo.com/tm-546-sixteen-clothing" target="_parent">This template</a> is free to use for your business websites. However, you have no permission to redistribute the downloadable ZIP file on any template collection website. <a rel="nofollow" href="https://templatemo.com/contact">Contact us</a> for more info.</p>
+              <h4>Buscas un lugar para comprar música?</h4>
+              <p>Sato Zen Records es una tienda virtual y física en donde encontraras lo mejor de la música, desde nuevos estrenos comerciales, hasta albumes que no encontrarás en otro lado. 
+                 En Sato Zen Records lo que buscamos es que seas dueño de la música que quieres. Para lograr esto manejamos los siguientes formatos
+              </p>
               <ul class="featured-list">
-                <li><a href="#">Lorem ipsum dolor sit amet</a></li>
-                <li><a href="#">Consectetur an adipisicing elit</a></li>
-                <li><a href="#">It aquecorporis nulla aspernatur</a></li>
-                <li><a href="#">Corporis, omnis doloremque</a></li>
-                <li><a href="#">Non cum id reprehenderit</a></li>
+                <li><a href="#">Discos</a></li>
+                <li><a href="#">Viniles</a></li>
+                <li><a href="#">Albumes digitales</a></li>
               </ul>
-              <a href="about.html" class="filled-button">Read More</a>
             </div>
           </div>
           <div class="col-md-6">
             <div class="right-image">
-              <img src="assets/images/feature-image.jpg" alt="">
+              <img src="assets/images/nosotros.jpg" alt="">
             </div>
           </div>
         </div>

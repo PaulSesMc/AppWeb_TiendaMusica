@@ -45,20 +45,20 @@
                 <a class="nav-link" href="viniles.php">Viniles</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="accesorios.html">Accesorios</a>
+                <a class="nav-link" href="digitales.php">Digitales</a>
               </li>
               <?php
                 if (isset($_SESSION["user"])) {
                   $nombre = $_SESSION["user"];
                   echo "<li class=\"nav-item\">
-                          <div class=\"dropdown\">
-                            <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
-                              Carrito
-                            </button>
-                            <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">
-                              <span>Aqui va el carrito de compras</span>
-                            </div>
-                          </div>
+                          <a class=\"nav-link\" href=\"usuario.php\">$_SESSION[user]</a>
+                        </li>
+                        <li class=\"nav-item\">
+                          <a class=\"nav-link\" href=\"carrito.php\">Carrito</a>
+                        </li>";
+                }else {
+                  echo "<li class=\"nav-item\">
+                          <a class=\"nav-link\" href=\"sesion.php\">Iniciar Sesión</a>
                         </li>";
                 }
               ?>
@@ -120,18 +120,38 @@
                     $resultado = mysqli_query($con,$query);
                     $fila = mysqli_fetch_array($resultado);
                     $imagen = 'uploads/'.$fila['imagen'];
-                    echo "
-                    <div class=\"col-lg-4 col-md-4 all $genero\">
-                      <div class=\"product-item\">
-                        <a href=\"#\"><img src=\"$imagen\" alt=\"\"></a>
-                        <div class=\"down-content\">
-                          <a href=\"#\"><h4>$titulo</h4></a>
-                          <br><h6>$$precio</h6>
-                          <p>$artista</p>
+                    if($stock>0){
+                      echo "
+                      <div class=\"col-lg-4 col-md-4 all $genero\">
+                        <div class=\"product-item\">
+                          <a href=\"#\"><img src=\"$imagen\" alt=\"\"></a>
+                          <div class=\"down-content\">
+                            <a href=\"#\"><h4>$titulo</h4></a>
+                            <br><h6>$$precio</h6>
+                            <p>$artista</p>
+                            <form method=\"post\">
+                              <div class=\"cart-action\"><button name=\"carrito\" value=\"$id\" type=\"submit\" class=\"carrito\">Agregar al carrito</button></div>
+                            </form>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    ";
+                      ";
+                    }
+                  }
+                  if(isset($_POST['carrito'])){
+                    if(isset($_SESSION["user"])){
+                      $producto = $_POST['carrito'];
+                      $usuario = $_SESSION['user_id'];
+                      $query="INSERT INTO carrito(usuario, producto) VALUES('$usuario', '$producto');";
+                      $r_insertar = mysqli_query($con,$query);
+                      if(!$r_insertar){
+                          $message = "Error al insertar";
+                      }else{
+                          $message = "Se agregó correctamente el producto";
+                      }
+                    }else{
+                      echo "<script type='text/javascript'>alert('Inicie sesión para poder comprar');</script>";
+                    }
                   }
                 ?>
               </div>

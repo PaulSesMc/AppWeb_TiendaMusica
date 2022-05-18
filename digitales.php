@@ -36,16 +36,16 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto"> 
-              <li class="nav-item ">
+              <li class="nav-item">
                 <a class="nav-link" href="discos.php">Discos</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="viniles.php">Viniles</a>
+              </li>
               <li class="nav-item active">
-                <a class="nav-link" href="viniles.php">Viniles
+                <a class="nav-link" href="accesorios.html">Digitales
                 <span class="sr-only">(current)</span>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="digitales.php">Digitales</a>
               </li>
               <?php
                 if (isset($_SESSION["user"])) {
@@ -70,13 +70,13 @@
     </header>
 
     <!-- Page Content -->
-    <div class="page-heading viniles-heading header-text">
+    <div class="page-heading digitales-heading header-text">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div class="text-content">
-              <h4>Clásicos</h4>
-              <h2>Viniles</h2>
+              <h4>Todo es</h4>
+              <h2>Digital</h2>
             </div>
           </div>
         </div>
@@ -106,7 +106,7 @@
                   if (mysqli_connect_errno()) {
                     echo "Failed to connect to MySQL: " . mysqli_connect_error();
                   }
-                  $query="SELECT * FROM productos WHERE tipo='Vinil';";
+                  $query="SELECT * FROM productos WHERE tipo='Digital';";
                   $result = mysqli_query($con,$query);
                   while($row = mysqli_fetch_array($result)){
                     $titulo = $row['titulo'];

@@ -38,21 +38,13 @@
                 <a class="nav-link" href="index.php">Inicio</a>
               </li> 
               <li class="nav-item">
-                <a class="nav-link" href="#productos">Productos</a>
+                <a class="nav-link" href="index.php#productos">Productos</a>
               </li>
-              <?php
-                if (isset($_SESSION["user"])) {
-                  $nombre = $_SESSION["user"];
-                  echo "<li class=\"nav-item active\">
-                          <a class=\"nav-link\" href=\"usuario.php\">$_SESSION[user]
-                          <span class=\"sr-only\">(current)</span></a>
-                        </li>";
-                } else {
-                  echo "<li class=\"nav-item\">
-                          <a class=\"nav-link\" href=\"sesion.php\">Iniciar Sesión</a>
-                        </li>";
-                }
-              ?>
+              <li class="nav-item active">
+                <a class="nav-link" href="usuario.php"><?php echo "$_SESSION[user]" ?>
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li> 
             </ul>
           </div>
         </div>
@@ -72,46 +64,28 @@
                   if (mysqli_connect_errno()) {
                     echo "Failed to connect to MySQL: " . mysqli_connect_error();
                   }
-                  if(isset($_POST['eliminar'])){
-                    $producto = $_POST['eliminar'];
-                    $query="DELETE FROM productos WHERE id=$producto;";
-                    $result = mysqli_query($con,$query);
-                    if(!$result){
-                        $message = "Error al borrar";
-                    }else{
-                        $message = "Se eliminó correctamente el producto";
-                    }
-                    echo "<script type='text/javascript'>alert('$message');</script>";
+                  if($_SESSION['permisos']==1){
+                    $query="SELECT * FROM compras c JOIN productos p ON c.producto=p.id;";
+                    echo "<h5>Todas las compras</h5>";
+                  }else{
+                    $usuario = $_SESSION['user_id'];
+                    $query="SELECT * FROM compras c JOIN productos p ON c.producto=p.id WHERE c.usuario=$usuario;";
+                    echo "<h5>Historial de compras</h5>";
                   }
-      
-                  $query="SELECT * FROM productos;";
-                  $productos = mysqli_query($con,$query);
+                  $compras = mysqli_query($con,$query);
 
                   echo "<table class=\"table table-sm\">";
                   echo "<thead class=\"thead-dark\">
                           <tr>
                             <th scope=\"col\" class=\"izq\">Titulo</th>
-                            <th scope=\"col\" class=\"izq\">Artista</th>
                             <th scope=\"col\">Precio</th>
-                            <th scope=\"col\">Genero</th>
-                            <th scope=\"col\">Tipo</th>
-                            <th scope=\"col\">Stock</th>
-                            <th scope=\"col\">Eliminar</th>
-                            <th scope=\"col\">Modificar</th>
                           </tr>
                         </thead>";
-                  while($row = mysqli_fetch_array($productos)) {
+                  while($row = mysqli_fetch_array($compras)) {
                     $titulo = $row['titulo'];
-                    $artista  = $row['artista'];
                     $precio  = $row['precio'];
-                    $genero  = $row['genero'];
-                    $tipo  = $row['tipo'];
-                    $stock = $row['stock'];
-                    $id = $row['id'];
     
-                    echo "<tr><td class=\"izq\">$titulo</td><td class=\"izq\">$artista</td><td>$precio</td><td>$genero</td><td>$tipo</td><td>$stock</td>
-                    <td><form method=\"POST\"><button name=\"eliminar\" value=\"$id\" type=\"submit\" class=\"eliminar\">Eliminar</button></form></td>
-                    <td><form method=\"POST\" action=\"mod_prod.php\"><button name=\"modificar\" value=\"$id\" type=\"submit\" class=\"modificar\">Modificar</button></td></form></tr>";
+                    echo "<tr><td class=\"izq\">$titulo</td><td>$precio</td></tr>";
                   }
                   echo "</table>";
                   
